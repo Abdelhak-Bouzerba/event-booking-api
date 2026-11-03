@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "type":"module",
   "scripts": {
     "start": "node dist/server.js",
     "dev": "tsx --watch src/server.ts",
@@ -12,7 +13,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
   "dependencies": {
     "bcrypt": "^6.0.0",
     "dotenv": "^18.0.9",
