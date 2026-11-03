@@ -3,13 +3,16 @@ import jwt from "jsonwebtoken";
 declare global {
     namespace Express {
         interface Request {
-            user?: string | jwt.JwtPayload;
+            user?: {
+                id: string;
+                role: string;
+            }
         }
     }
 }
 
 //Generate a JWT access token 
-export const generateJwtAccessToken = (payload: any) => { 
+export const generateJwtAccessToken = (payload: {id:string , role:string} ) => { 
     const token = jwt.sign(payload, process.env.JWT_SECRET as string, {
         expiresIn: "1d"
     });

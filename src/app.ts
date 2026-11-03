@@ -1,11 +1,14 @@
 import express from "express";
 import dotenv from "dotenv";
+import { errorHandler } from "./middlewares/errorHandler.js";
+
+
 dotenv.config();
 
 const app = express();
+app.use(express.json());
 
-app.get("/", (req, res) => { 
-  res.send("Hello, World!");
-});
+//Global error handler middleware
+app.use(errorHandler);
 
 export default app;
