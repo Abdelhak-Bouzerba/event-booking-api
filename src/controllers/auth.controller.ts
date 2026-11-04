@@ -17,8 +17,9 @@ const registerUser = async (req: Request, res: Response) => {
 
     //send response
     res.status(201).json({
-        user,
-        accessToken
+        success: true,
+        message: "User registered successfully",
+        data: { user, accessToken }
     });
 
 };
@@ -37,7 +38,9 @@ const loginUser = async (req: Request, res: Response) => {
 
     //send response
     res.status(200).json({
-        accessToken
+        success: true,
+        message: "User logged in successfully",
+        data: { accessToken }
     });
     
 };

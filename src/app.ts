@@ -3,7 +3,8 @@ import dotenv from "dotenv";
 import cors from "cors";
 import morgan from "morgan";
 import { errorHandler } from "./middlewares/errorHandler.js";
-import userRoutes from "./routes/auth.route.js";
+import authRoutes from "./routes/auth.route.js";
+import eventRoutes from "./routes/events.route.js";
 
 dotenv.config();
 
@@ -17,7 +18,8 @@ app.use(cors({
 }));
 
 //Routes
-app.use("/api/auth", userRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/events", eventRoutes);
 
 //Global error handling middleware
 app.use(errorHandler);

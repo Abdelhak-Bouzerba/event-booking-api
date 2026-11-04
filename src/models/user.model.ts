@@ -12,7 +12,7 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare name: string;
   declare email: string;
   declare passwordHash: string;
-  declare role: "orgnaizer" | "attendee";
+  declare role: "organizer" | "attendee";
 }
 
 User.init(
@@ -42,10 +42,10 @@ User.init(
       allowNull: false,
     },
     role: {
-      type: DataTypes.ENUM("orgnaizer", "attendee"),
+      type: DataTypes.ENUM("organizer", "attendee"),
       allowNull: false,
       validate: {
-        isIn: [["orgnaizer", "attendee"]],
+        isIn: [["organizer", "attendee"]],
       },
     },
   },

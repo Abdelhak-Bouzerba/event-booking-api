@@ -34,6 +34,7 @@ const registerUser = async (userData: RegisterUserSchemaType) => {
 
     //Generate jwt access token
     const accessToken = generateJwtAccessToken({
+        id: newUser.id,
         email: newUser.email,
         role: newUser.role
     });
@@ -69,6 +70,7 @@ const loginUser = async (loginData: LoginUserSchemaType) => {
 
     //Generate jwt access token
     const accessToken = generateJwtAccessToken({
+        id: existingUser.id,
         email: data.email,
         role: existingUser.role
     });
