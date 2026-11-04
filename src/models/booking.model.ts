@@ -16,7 +16,6 @@ class Booking extends Model<
   declare eventId: number;
   declare seats: number;
   declare status: "active" | "cancelled";
-  declare createdAt: CreationOptional<Date>;
 }
 
 Booking.init(
@@ -58,15 +57,11 @@ Booking.init(
         isIn: [["active", "cancelled"]],
       },
     },
-    createdAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: Date.now(),
-    },
   },
   {
     sequelize,
     tableName: "bookings",
+    timestamps: true,
   },
 );
 

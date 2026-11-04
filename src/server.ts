@@ -1,15 +1,15 @@
 import app from "./app.js";
+import "./models/index.js";
 import sequelize from "./config/db.js";
 import dotenv from "dotenv";
 dotenv.config();
-
-const PORT = process.env.PORT || 3000;
 
 const startServer = async () => {
   try {
     await sequelize.authenticate();
     console.log("Database established successfully🟢");
 
+    const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
     });

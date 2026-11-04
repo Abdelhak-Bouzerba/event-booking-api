@@ -13,7 +13,6 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare email: string;
   declare passwordHash: string;
   declare role: "orgnaizer" | "attendee";
-  declare createdAt: CreationOptional<Date>;
 }
 
 User.init(
@@ -41,10 +40,6 @@ User.init(
     passwordHash: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        isEmpty: false,
-        len: [8, 50],
-      },
     },
     role: {
       type: DataTypes.ENUM("orgnaizer", "attendee"),
@@ -53,14 +48,12 @@ User.init(
         isIn: [["orgnaizer", "attendee"]],
       },
     },
-    createdAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: Date.now(),
-    },
   },
   {
     sequelize,
     tableName: "users",
+    timestamps: true,
   },
 );
+
+export default User;

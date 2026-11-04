@@ -18,7 +18,6 @@ class Event extends Model<
   declare venue: string;
   declare startsAt: Date;
   declare capacity: number;
-  declare createdAt: CreationOptional<Date>;
 }
 
 Event.init(
@@ -67,15 +66,11 @@ Event.init(
         min: 1,
       },
     },
-    createdAt: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
   },
   {
     sequelize,
     tableName: "events",
+    timestamps: true,
   },
 );
 
