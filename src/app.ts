@@ -5,6 +5,7 @@ import morgan from "morgan";
 import { errorHandler } from "./middlewares/errorHandler.js";
 import authRoutes from "./routes/auth.route.js";
 import eventRoutes from "./routes/events.route.js";
+import userRoutes from "./routes/user.route.js";
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use(cors({
 //Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/events", eventRoutes);
+app.use("/api/users", userRoutes);
 
 //Global error handling middleware
 app.use(errorHandler);

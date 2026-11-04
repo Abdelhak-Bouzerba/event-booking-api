@@ -1,4 +1,4 @@
-import userRepository from "../repositories/auth.repository.js";
+import authRepository from "../repositories/auth.repository.js";
 import { registerUserSchema, RegisterUserSchemaType , loginUserSchema , LoginUserSchemaType } from "../validators/auth.validator.js";
 import { ApiError } from "../middlewares/errorHandler.js";
 import bcrypt from "bcrypt";
@@ -16,7 +16,7 @@ const registerUser = async (userData: RegisterUserSchemaType) => {
     const data = parseResult.data;
 
     //check if user already exists
-    const existingUser = await userRepository.checkUserExists(data.email);
+    const existingUser = await authRepository.checkUserExists(data.email);
     if (existingUser) {
         throw new ApiError("User already exists", 400, "USER_EXISTS");
     }
@@ -25,11 +25,11 @@ const registerUser = async (userData: RegisterUserSchemaType) => {
     const passwordHash = await bcrypt.hash(data.password, 10);
 
     //register the new user
-    const newUser = await userRepository.registerUser({
-        name: data.name,
-        email: data.email,
-        passwordHash,
-        role: data.role
+    const newUser = await authRepository.registerUser({
+      name: data.name,
+      email: data.email,
+      passwordHash,
+      role: data.role,
     });
 
     //Generate jwt access token
@@ -57,7 +57,7 @@ const loginUser = async (loginData: LoginUserSchemaType) => {
     const data = parseResult.data;
 
     //check if user exists
-    const existingUser = await userRepository.checkUserExists(data.email);
+    const existingUser = await authRepository.checkUserExists(data.email);
     if (!existingUser) { 
         throw new ApiError("invalid email or password", 400, "INVALID_CREDENTIALS");
     }

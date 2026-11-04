@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import userService from "../services/auth.service.js";
+import authService from "../services/auth.service.js";
 import { ApiError } from "../middlewares/errorHandler.js";
 
 
@@ -13,7 +13,7 @@ const registerUser = async (req: Request, res: Response) => {
     }
 
     //Call register user service
-    const { user, accessToken } = await userService.registerUser(userData);
+    const { user, accessToken } = await authService.registerUser(userData);
 
     //send response
     res.status(201).json({
@@ -34,7 +34,7 @@ const loginUser = async (req: Request, res: Response) => {
     }
 
     //Call login user service
-    const accessToken = await userService.loginUser({ email, password });
+    const accessToken = await authService.loginUser({ email, password });
 
     //send response
     res.status(200).json({
