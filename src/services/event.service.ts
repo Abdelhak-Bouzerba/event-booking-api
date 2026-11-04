@@ -65,7 +65,11 @@ const updateEvent = async (eventId: number, organizerId: number, eventData: Upda
     }
     const data = parseResult.data;
 
-    //check the capacity with seats booked later
+    //check the capacity with seats booked
+    const totalBookedSeats = await bookingRepository.getTotalBookedSeats(eventId);
+    if (data.capacity && data.capacity < totalBookedSeats) {
+        throw new ApiError("New capacity cannot be less than the total booked seats", 400, "INVALID_CAPACITY");
+    }
 
     //update the event
     const event = await eventRepository.updateEvent(eventId, data);
