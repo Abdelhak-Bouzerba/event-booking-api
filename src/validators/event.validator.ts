@@ -26,3 +26,12 @@ export const updateEventSchema = z.object({
     }).optional(),
 });
 export type UpdateEventSchemaType = z.infer<typeof updateEventSchema>;
+
+
+//Define the schema for book seats
+export const bookSeatsSchema = z.object({
+  eventId: z.number().int().positive(),
+  userId: z.number().int().positive(),
+  seatsToBook: z.number().int().positive().min(1).max(5),
+});
+export type BookSeatsSchemaType = z.infer<typeof bookSeatsSchema>;

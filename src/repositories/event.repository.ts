@@ -1,16 +1,17 @@
 import { Op } from "sequelize";
 import Event from "../models/event.model.js";
+import Booking from "../models/booking.model.js";
 
 //Check event organizer ownership
 const checkEventOwnership = async (eventId: number, organizerId: number) => {
-    const event = await Event.findOne({
-        where: {
-            id: eventId,
-            organizerId: organizerId
-        }
-    });
-    return event;
-}
+  const event = await Event.findOne({
+    where: {
+      id: eventId,
+      organizerId: organizerId,
+    },
+  });
+  return event;
+};
 
 //List upcoming events with pagination
 const listUpcomingEvents = async (page: number, limit: number) => {
@@ -41,31 +42,30 @@ const createEvent = async (eventData: any) => {
 
 //Update an event
 const updateEvent = async (eventId: number, eventData: any) => {
-    const event = await Event.findOne({
-        where: {
-            id: eventId
-        }
-    });
-    await event?.update(eventData);
-    return event;
-
+  const event = await Event.findOne({
+    where: {
+      id: eventId,
+    },
+  });
+  await event?.update(eventData);
+  return event;
 };
 
 //Delete an event
 const deleteEvent = async (eventId: number) => {
-    await Event.destroy({
-        where: {
-            id: eventId
-        }
-    });
-
+  await Event.destroy({
+    where: {
+      id: eventId,
+    },
+  });
 };
 
+
 export default {
-checkEventOwnership,
+  checkEventOwnership,
   listUpcomingEvents,
   getEventDetails,
   createEvent,
   updateEvent,
-  deleteEvent
+  deleteEvent,
 };

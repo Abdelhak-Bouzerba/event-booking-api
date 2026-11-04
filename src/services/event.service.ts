@@ -1,10 +1,13 @@
 import eventRepository from "../repositories/event.repository.js";
+import bookingRepository from "../repositories/bookingRepository.js";
 import { ApiError } from "../middlewares/errorHandler.js";
 import {
   createEventSchema,
   CreateEventSchemaType,
   updateEventSchema,
-  UpdateEventSchemaType,
+    UpdateEventSchemaType,
+    bookSeatsSchema,
+  BookSeatsSchemaType
 } from "../validators/event.validator.js";
 
 
@@ -90,11 +93,40 @@ const deleteEvent = async (eventId: number, organizerId: number) => {
 
 };
 
+//Book seats for an event Service
+const bookSeats = async (eventId: number, userId: number, seatsToBook: number) => {
+
+    //validate input
+    const parseResult = bookSeatsSchema.safeParse({ eventId, userId, seatsToBook });
+    if (!parseResult.success) {
+        throw new ApiError(parseResult.error.message, 400, "INVALID_INPUT");
+    }
+    const data = parseResult.data;
+
+    //check if event exists
+    const event = await eventRepository.getEventDetails(data.eventId);
+    if (!event) {
+        throw new ApiError("Event not found", 404, "EVENT_NOT_FOUND");
+    }
+
+    //check if there are enough seats available
+    const totalBookedSeats = await bookingRepository.getTotalBookedSeats(data.eventId);
+    const availableSeats = event.capacity - totalBookedSeats;
+    if (availableSeats < data.seatsToBook) {
+        throw new ApiError("Not enough seats available", 409, "NOT_ENOUGH_SEATS");
+    }
+
+    //book the seats
+    await bookingRepository.bookSeats(eventId, userId, seatsToBook);
+
+};
+
 
 export default {
     listUpcomingEvents,
     getEventDetails,
     createEvent,
     updateEvent,
-    deleteEvent
+    deleteEvent,
+    bookSeats,
 }

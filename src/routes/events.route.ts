@@ -31,4 +31,9 @@ router.patch("/:eventId", validateJWT, requireRole("organizer"), asyncHandler(ev
 //Access Private (event organizer only)
 router.delete("/:eventId", validateJWT, requireRole("organizer"), asyncHandler(eventController.deleteEvent));
 
+//Book seats for an event
+//Route POST /api/events/:eventId/bookings
+//Access Private (Attendee only)
+router.post("/:eventId/bookings", validateJWT, requireRole("attendee"), asyncHandler(eventController.bookSeats));
+
 export default router;

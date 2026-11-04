@@ -3,7 +3,7 @@ import eventService from "../services/event.service.js";
 import { ApiError } from "../middlewares/errorHandler.js";
 
 
-//List upcoming events controller
+//List upcoming events
 const listUpcomingEvents = async (req: Request, res: Response) => {
     const { page, limit } = req.query;
     const pageNum = parseInt(page as string) || 1;
@@ -21,7 +21,7 @@ const listUpcomingEvents = async (req: Request, res: Response) => {
 
 };
 
-//Get an event's details controller
+//Get an event's details 
 const getEventDetails = async (req: Request, res: Response) => {
     const { eventId } = req.params;
 
@@ -37,7 +37,7 @@ const getEventDetails = async (req: Request, res: Response) => {
 
 };
 
-//Create a new event controller
+//Create a new event 
 const createEvent = async (req: Request, res: Response) => {
     const eventData = req.body;
 
@@ -58,7 +58,7 @@ const createEvent = async (req: Request, res: Response) => {
 
 };
 
-//Update an event Controller
+//Update an event
 const updateEvent = async (req: Request, res: Response) => {
     const { eventId } = req.params;
     const organizerId = req.user?.id;
@@ -81,7 +81,7 @@ const updateEvent = async (req: Request, res: Response) => {
 
 };
 
-//delete an event Controller
+//delete an event
 const deleteEvent = async (req: Request, res: Response) => {
     const { eventId } = req.params;
     const organizerId = req.user?.id;
@@ -102,10 +102,33 @@ const deleteEvent = async (req: Request, res: Response) => {
 
 };
 
+//Book seats for an event
+const bookSeats = async (req: Request, res: Response) => {
+    const { eventId } = req.params;
+    const userId = req.user?.id;
+    const { seatsToBook } = req.body;
+
+    //check if seatsToBook is provided
+    if (!seatsToBook || seatsToBook <= 0) {
+        throw new ApiError("Seats to book must be provided", 400, "INVALID_INPUT");
+    }
+
+    //Call book seats Service
+    await eventService.bookSeats(Number(eventId), userId!, seatsToBook);
+
+    //send response
+    res.status(200).json({
+        success: true,
+        message: "Seats booked successfully"
+    });
+    
+};
+
 export default {
     listUpcomingEvents,
     getEventDetails,
     createEvent,
     updateEvent,
-    deleteEvent
+    deleteEvent,
+    bookSeats
 }
