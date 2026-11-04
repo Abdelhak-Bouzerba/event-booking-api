@@ -35,8 +35,9 @@ const getUserBookings = async (userId: number) => {
 
 };
 
-//Delete a booking
-const deleteBooking = async (bookingId: number, userId: number) => { 
+
+//Cancel a booking
+const cancelBooking = async (bookingId: number, userId: number) => { 
 
     //check if booking exists
     const booking = await userRepository.getBookingDetails(bookingId);
@@ -49,7 +50,7 @@ const deleteBooking = async (bookingId: number, userId: number) => {
         throw new ApiError("You don't have access to delete this booking", 403, "UNAUTHORIZED");
     }
 
-    //delete the booking
+    //cancel the booking
     await userRepository.deleteBooking(bookingId);
 
     //Free up the booked seats
@@ -67,5 +68,5 @@ const deleteBooking = async (bookingId: number, userId: number) => {
 export default {
   getUserProfile,
   getUserBookings,
-  deleteBooking,
+  cancelBooking,
 };

@@ -16,7 +16,7 @@ const listUpcomingEvents = async (req: Request, res: Response) => {
     res.status(200).json({
         success: true,
         message: "Upcoming events fetched successfully",
-        data: events
+        data: { events }
     });
 
 };
@@ -32,7 +32,7 @@ const getEventDetails = async (req: Request, res: Response) => {
     res.status(200).json({
         success: true,
         message: "Event details fetched successfully",
-        data: event
+        data: { event }
     });
 
 };
@@ -53,7 +53,7 @@ const createEvent = async (req: Request, res: Response) => {
     res.status(201).json({
         success: true,
         message: "Event created successfully",
-        data: event
+        data: { event }
     });
 
 };
@@ -76,7 +76,7 @@ const updateEvent = async (req: Request, res: Response) => {
     res.status(200).json({
         success: true,
         message: "Event updated successfully",
-        data: event
+        data: { event }
     });
 
 };

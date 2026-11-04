@@ -16,10 +16,10 @@ router.get("/me" , validateJWT, asyncHandler(userController.getUserProfile));
 //Access Private (Authenticated users only)
 router.get("/me/bookings", validateJWT, requireRole("attendee"), asyncHandler(userController.getUserBookings));
 
-//Delete a booking
+//Cancel a booking
 //Route DELETE /api/users/me/bookings/:bookingId
 //Access Private (Booking owner only)
-router.delete("/me/bookings/:bookingId", validateJWT, requireRole("attendee"), asyncHandler(userController.deleteBooking));
+router.delete("/me/bookings/:bookingId", validateJWT, requireRole("attendee"), asyncHandler(userController.cancelBooking));
 
 
 export default router;

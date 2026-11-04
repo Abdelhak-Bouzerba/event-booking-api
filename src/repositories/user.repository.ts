@@ -28,8 +28,8 @@ const getBookingDetails = async (bookingId: number) => {
     return booking;
 };
 
-//Delete a booking
-const deleteBooking = async (bookingId: number) => {
+//Cancel a booking
+const cancelBooking = async (bookingId: number) => {
     await Booking.destroy({
         where: {
             id: bookingId
@@ -42,5 +42,5 @@ export default {
     getUserProfile,
     getUserBooking,
     getBookingDetails,
-    deleteBooking
+    cancelBooking
 };

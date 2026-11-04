@@ -38,13 +38,14 @@ const getUserBookings = async (req: Request, res: Response) => {
 
 };
 
-//Delete a booking
-const deleteBooking = async (req: Request, res: Response) => {
+//Cancel a booking
+const cancelBooking = async (req: Request, res: Response) => {
     const { bookingId } = req.params;
     const userId = req.user?.id;
 
-    //Call delete booking service
-    await userService.deleteBooking(Number(bookingId), Number(userId));
+
+    //Call cancel booking service
+    await userService.cancelBooking(Number(bookingId), Number(userId));
 
     //send response
     res.status(200).json({
@@ -57,5 +58,5 @@ const deleteBooking = async (req: Request, res: Response) => {
 export default {
     getUserProfile,
     getUserBookings,
-    deleteBooking
+    cancelBooking
 };
