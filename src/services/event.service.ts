@@ -90,7 +90,11 @@ const deleteEvent = async (eventId: number, organizerId: number) => {
         throw new ApiError("you are not the organizer of this event", 404, "NOT_EVENT_OWNER");
     }
 
-    //check if there are no active bookings for this event later
+    //check if there are no active bookings for this event
+    const activeBookings = await bookingRepository.getTotalBookedSeats(eventId);
+    if(activeBookings && activeBookings > 0) {
+        throw new ApiError("Cannot delete event with active bookings", 400, "ACTIVE_BOOKINGS_EXIST");
+    }
 
     //delete the event
     await eventRepository.deleteEvent(eventId);
