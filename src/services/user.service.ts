@@ -51,7 +51,7 @@ const cancelBooking = async (bookingId: number, userId: number) => {
     }
 
     //cancel the booking
-    await userRepository.deleteBooking(bookingId);
+    await userRepository.cancelBooking(bookingId);
 
     //Free up the booked seats
     const event = await eventRepository.getEventDetails(booking.eventId);

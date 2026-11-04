@@ -3,6 +3,7 @@ import eventController from "../controllers/event.controller.js";
 import asyncHandler from "express-async-handler";
 import validateJWT from "../middlewares/validateJWT.js";
 import {requireRole} from "../middlewares/requireRole.js";
+import { bookingLimiter } from "../middlewares/limiter.js";
 
 const router = express.Router();
 
@@ -34,6 +35,6 @@ router.delete("/:eventId", validateJWT, requireRole("organizer"), asyncHandler(e
 //Book seats for an event
 //Route POST /api/events/:eventId/bookings
 //Access Private (Attendee only)
-router.post("/:eventId/bookings", validateJWT, requireRole("attendee"), asyncHandler(eventController.bookSeats));
+router.post("/:eventId/bookings", bookingLimiter, validateJWT, requireRole("attendee"), asyncHandler(eventController.bookSeats));
 
 export default router;
