@@ -54,7 +54,7 @@ const updateEvent = async (eventId: number,organizerId: number,eventData: Update
   if (!eventCheck) {
     throw new ApiError(
       "you are not the organizer of this event",
-      404,
+      403,
       "NOT_EVENT_OWNER",
     );
   }
@@ -137,9 +137,15 @@ const bookSeats = async (eventId: number, userId: number, seatsToBook: number) =
         throw new ApiError("Cannot book seats for an event that has already started", 400, "EVENT_ALREADY_STARTED");
     }
 
+  //check if the event is already full
+    const totalBookedSeats = await bookingRepository.getTotalBookedSeats(data.eventId);
+    if(totalBookedSeats >= event.capacity) {
+        throw new ApiError("Event is already full", 400, "EVENT_FULL");
+    }
+
   //check if user already have booked on this event
-  const existingBooking = await userRepository.getUserBooking(userId);
-  if (existingBooking) {
+  const existingBooking = await userRepository.getUserBooking(userId , eventId);
+  if (existingBooking && existingBooking.length > 0) {
     throw new ApiError(
       "you have already booked for this event",
       400,
@@ -147,10 +153,7 @@ const bookSeats = async (eventId: number, userId: number, seatsToBook: number) =
     );
   }
 
-  //check if there are enough seats available
-  const totalBookedSeats = await bookingRepository.getTotalBookedSeats(
-    data.eventId,
-  );
+  //check if there are not enough seats available
   const availableSeats = event.capacity - totalBookedSeats;
   if (availableSeats < data.seatsToBook) {
     throw new ApiError("Not enough seats available", 409, "NOT_ENOUGH_SEATS");

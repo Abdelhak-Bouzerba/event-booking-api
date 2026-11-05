@@ -4,6 +4,7 @@
     "target": "ES2022",
     "module": "nodenext",
     "moduleResolution": "nodenext",
+    "isolatedModules": true,
     "rootDir": "./src",
     "outDir": "./dist",
     "strict": true,

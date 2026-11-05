@@ -20,7 +20,7 @@ const getUserProfile = async (userId: number) => {
 
 };
 
-//Get user booings
+//Get user bookings
 const getUserBookings = async (userId: number) => {
 
     //check if user exists
@@ -29,8 +29,8 @@ const getUserBookings = async (userId: number) => {
         throw new ApiError("User not found", 404, "USER_NOT_FOUND");
     }
 
-    //get user bookinngs
-    const bookings = await userRepository.getUserBooking(userId);
+    //get user bookings
+    const bookings = await userRepository.getUserBookings(userId);
     return bookings;
 
 };

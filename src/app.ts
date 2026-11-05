@@ -1,5 +1,4 @@
 import express from "express";
-import dotenv from "dotenv";
 import cors from "cors";
 import morgan from "morgan";
 import { errorHandler } from "./middlewares/errorHandler.js";
@@ -7,8 +6,6 @@ import authRoutes from "./routes/auth.route.js";
 import eventRoutes from "./routes/events.route.js";
 import userRoutes from "./routes/user.route.js";
 import { apiLimiter } from "./middlewares/limiter.js";
-
-dotenv.config();
 
 const app = express();
 

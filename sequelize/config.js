@@ -17,6 +17,7 @@ export default {
 
   test: {
     ...common,
+    database: process.env.TEST_DB_NAME,
     logging: false,
   },
 

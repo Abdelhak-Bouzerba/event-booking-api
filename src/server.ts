@@ -2,7 +2,7 @@ import app from "./app.js";
 import "./models/index.js";
 import sequelize from "./config/db.js";
 import dotenv from "dotenv";
-dotenv.config();
+dotenv.config({quiet: true});
 
 const startServer = async () => {
   try {

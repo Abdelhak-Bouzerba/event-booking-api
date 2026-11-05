@@ -11,7 +11,20 @@ const getUserProfile = async (userId: number) => {
 };
 
 //Get user bookings
-const getUserBooking = async (userId: number) => {
+const getUserBooking = async (userId: number , eventId: number) => {
+    const booking = await Booking.findAll({
+        where: {
+            eventId: eventId,
+            userId: userId
+        },
+        order: [["createdAt", "DESC"]],
+    });
+    return booking;
+    
+};
+
+//Get user bookings
+const getUserBookings = async (userId: number) => {
     const bookings = await Booking.findAll({
         where: {
             userId: userId
@@ -41,6 +54,7 @@ const cancelBooking = async (bookingId: number) => {
 export default {
     getUserProfile,
     getUserBooking,
+    getUserBookings,
     getBookingDetails,
     cancelBooking
 };
