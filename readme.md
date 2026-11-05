@@ -6,6 +6,7 @@ A TypeScript/Express API for user authentication, organizer-managed events, and 
 
 - Node.js 20+ and npm
 - MySQL 8+
+- typescript 5.9.3+
 - Docker and Docker Compose (optional, but recommended for local MySQL)
 
 ## Installation
@@ -180,6 +181,10 @@ curl -X PATCH http://localhost:3000/api/events/<event-id> \
 - Event creation currently accepts `organizerId` from the authenticated JWT.
 - More time would be used to add stronger request schemas for every controller, transaction/locking protection around concurrent seat bookings, API documentation with OpenAPI, and broader coverage for update/delete, cancellation, rate limits, and database failure cases.
 - Waitlist. When an event is full, attendees can join a waitlist; a cancellation offers the seat to the first person waiting.
+
+## AI assistance
+
+AI tools were used as development aids to simplify and clarify confusing concepts, particularly parts of the test configuration and Docker setup. I also used explanations from LLM, including ChatGPT and Claude, to better understand implementation options and troubleshoot issues.
 
 ## Approximate time spent
 
