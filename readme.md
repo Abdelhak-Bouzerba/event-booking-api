@@ -85,6 +85,12 @@ The test setup cleans the test database before each test. Never point `TEST_DB_N
 
 The examples assume the server is running at `http://localhost:3000`. Save tokens from the registration or login response and use them as `Bearer` tokens.
 
+### Postman collection
+
+The complete request collection is available in Postman:
+
+[Open the Event Booking API Postman collection](https://abdelhakbouzerba96-8067481.postman.co/workspace/Jibli-Team%27s-Workspace~6b242ffd-7f88-45e1-8027-e36d3560c2a1/collection/6aea4eb4501186066b4bb00a?action=share&source=copy-link&creator=57452810)
+
 ### Register an attendee
 
 ```bash
